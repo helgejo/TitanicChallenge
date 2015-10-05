@@ -56,13 +56,14 @@ print(result)
 output.model <- train(Survived ~ Sex + Pclass + SibSp + Parch + Embarked, data = df.train, method = "glm")
 
 # use the logistic regression model to generate predictions
-Survived.out <- predict(output.model, newdata = df.infer)
+Survived <- predict(output.model, newdata = df.infer)
 
 # link to PassengerId in a data frame
-predictions <- as.data.frame(Survived.out)
+predictions <- as.data.frame(Survived)
+#colnames(predictions) <- "Survived"
 predictions$PassengerId <- df.infer$PassengerId
 
 
 # write predictions to csv file for submission to Kaggle
-write.csv(predictions[,c("PassengerId", "Survived.out")], 
+write.csv(predictions[,c("PassengerId", "Survived")], 
           file="output/Titanic_predictions.csv", row.names=FALSE, quote=FALSE)

@@ -1,3 +1,5 @@
+#data <- read.csv("data/train.csv")
+library(Amelia)
 readData <- function(path.name, file.name, column.types, missing.types) {
         read.csv( paste( path.name, file.name, sep="" ), 
                   colClasses= column.types,
@@ -21,7 +23,7 @@ train.column.types <- c('integer',   # PassengerId
                         'character', # Cabin
                         'factor'     # Embarked
 )
-test.column.types <- train.column.types[-2]     # # no Survived column in test.csv
+test.column.types <- train.column.types[-2]     ## no Survived column in test.csv
 
 train.raw <- readData(Titanic.path, train.data.file, 
                       train.column.types, missing.types)
@@ -35,4 +37,6 @@ head(df.train)
 str(df.train)
 
 
+missmap(df.train, main="Titanic Training Data - Missings Map", 
+        col=c("yellow", "black"), legend=FALSE)
 
